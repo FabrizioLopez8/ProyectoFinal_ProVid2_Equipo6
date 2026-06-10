@@ -35,10 +35,5 @@ C#
 Git
 GitHub
 
- Estado 
- 
- En desarrollo.
-
-Licencia
-
-Proyecto desarrollado con fines educativos para la universidad.
+Estado 
+Proyecto desarrollado con fines educativos para la UNAHUR.
