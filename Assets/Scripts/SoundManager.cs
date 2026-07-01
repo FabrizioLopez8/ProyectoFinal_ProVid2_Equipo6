@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("Configuración de Audio")]
+    public AudioSource musicaFondo; 
+
     void Start()
     {
-        
+  
+        if (musicaFondo != null)
+        {
+            musicaFondo.loop = true;
+            if (!musicaFondo.isPlaying)
+            {
+                musicaFondo.Play();
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+   
+    public void CambiarVolumen(float valorVolumen)
     {
-        
+        if (musicaFondo != null)
+        {
+            musicaFondo.volume = valorVolumen;
+        }
     }
 }
