@@ -22,3 +22,31 @@ public class Habilidad1 : ITestAbilities
     }
 
 }
+
+public class Attack : ITestAbilities
+{
+    public string Nombre => "Ataque";
+
+    public void Ejecutar(TestBolsimon origen, TestBolsimon objetivo)
+    {
+        objetivo.RecibirAtaque(origen);
+    }
+
+}
+
+public class Shield : ITestAbilities
+{
+    public string Nombre => "Escudo";
+
+    public void Ejecutar(TestBolsimon origen, TestBolsimon objetivo)
+    {
+        objetivo.TestRecibir(origen, this.Nombre);
+    }
+
+    public int Algo()
+    {
+        return 0;
+    }
+
+
+}
