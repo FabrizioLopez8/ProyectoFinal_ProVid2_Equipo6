@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
     public int turnoActual = 0; // Indice del 0 al 2 (3 posiciones)
 
     void Awake(){
-        if (instance == null) 
+        if (Instance == null) 
         {
-            instance = this; DontDestroyOnLoad(gameObjetct);
+            Instance = this; DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObjetct);
+        else Destroy(gameObject);
     }
 
     public void AvanzarTurno(){
