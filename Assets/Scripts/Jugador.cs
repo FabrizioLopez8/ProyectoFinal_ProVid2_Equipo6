@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public enum EstadoJugador {Vivo, Eliminado}
+public enum EstadoJugador { Vivo, Eliminado }
 
-[System.Serializable]
-public class jugador {
-    public string nombre; // "jugador 1 ", "jugador 2" "jugador 3"
-    //public Bolsimon criatura ;
-    public EstadoJugador estado = EstadoJugador.Vivo;
+[Serializable]
+public class Jugador
+{
+    public string nombre;
+    public Bolsimon criatura;
+    public EstadoJugador estado;
 }
