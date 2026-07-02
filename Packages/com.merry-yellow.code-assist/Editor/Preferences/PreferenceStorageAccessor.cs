@@ -146,7 +146,7 @@ namespace Meryel.UnityCodeAssist.Editor.Preferences
 
 #elif UNITY_EDITOR_LINUX
 
-    public class LinuxPrefStorage : PreferanceStorageAccessor
+    public class LinuxPrefStorage : PreferenceStorageAccessor
     {
         readonly FileSystemWatcher fileWatcher;
 

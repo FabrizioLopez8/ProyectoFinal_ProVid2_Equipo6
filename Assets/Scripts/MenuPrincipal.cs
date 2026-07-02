@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipal : MonoBehaviour
 {
-    // Paneles del menú
+    // Paneles del menï¿½
     public GameObject panelMenuPrincipal;
     public GameObject panelOpciones;
     public GameObject panelCreditos;
     public GameObject panelSeleccion; 
 
-    // --- FUNCIONES DEL MENÚ PRINCIPAL ---
+    // --- FUNCIONES DEL MENï¿½ PRINCIPAL ---
 
     public void AbrirSeleccion()
     {
@@ -25,7 +25,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void IniciarBatalla()
     {
-        SceneManager.LoadScene("EscenaJuego"); 
+        SceneManager.LoadScene("testScene"); 
     }
 
     public void Salir()
@@ -34,7 +34,7 @@ public class MenuPrincipal : MonoBehaviour
         Application.Quit();
     }
 
-    // --- FUNCIONES DE OPCIONES Y CRÉDITOS ---
+    // --- FUNCIONES DE OPCIONES Y CRï¿½DITOS ---
     public void AbrirOpciones()
     {
         panelMenuPrincipal.SetActive(false);

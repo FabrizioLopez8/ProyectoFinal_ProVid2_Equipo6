@@ -3,9 +3,9 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngineInternal;
+using UnityEngine.SceneManagement;
 
 public class TestGM : MonoBehaviour
 {
@@ -21,6 +21,9 @@ public class TestGM : MonoBehaviour
     public TMP_Text bolsimon3Vida;
 
     public List<Action> accionesTurno = new List<Action>();
+
+    private bool returnToMenuTimerStart = false;
+    private float rtmt = 0.0f;
 
     void Awake()
     {
@@ -45,13 +48,21 @@ public class TestGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (returnToMenuTimerStart)
+        {
+            rtmt += Time.deltaTime;
+            if (rtmt >= 5.0f)
+            {
+                ReturnToMainMenu();
+            }
+        }
     }
 
     void StartRound()
     {
         players[players.FindIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().SetTurn(true);
         turnPlayer = players[players.FindIndex(GameObject => GameObject.activeSelf == true)];
+        textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
     }
 
     public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target)
@@ -62,7 +73,6 @@ public class TestGM : MonoBehaviour
 
     void NextPlayer()
     {
-        print(turnPlayer);
         print("paso al turno del siguiente jugador");
         if (players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().currentTurn)
         {
@@ -72,7 +82,7 @@ public class TestGM : MonoBehaviour
             return;
         }
 
-        bool nextPlayerAwaiting = false;
+        bool nextPlayerAwaiting = false; print(turnPlayer);
         foreach (GameObject p in players)
         {
             TestBolsimon pTurn = p.GetComponent<TestBolsimon>();
@@ -90,6 +100,7 @@ public class TestGM : MonoBehaviour
                 nextPlayerAwaiting = false;
                 pTurn.SetTurn(true);
                 turnPlayer = p;
+                textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
             }
         }
 
@@ -111,6 +122,7 @@ public class TestGM : MonoBehaviour
                 continue;
             }
             a.origen.habilidades[a.indexHabilidad].Ejecutar(a.origen, a.target);
+            textUI.text = $"{a.origen.Name} ha usado {a.origen.habilidades[a.indexHabilidad].Nombre} en {a.target.Name}";
         }
     }
 
@@ -121,6 +133,7 @@ public class TestGM : MonoBehaviour
             bolsimon1Vida.text = vida.ToString();
             if (vida <= 0)
             {
+                textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetFuego").SetActive(false);
                 bolsimon1Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
@@ -132,6 +145,7 @@ public class TestGM : MonoBehaviour
             bolsimon2Vida.text = vida.ToString();
             if (vida <= 0)
             {
+                textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetAgua").SetActive(false);
                 bolsimon2Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
@@ -143,6 +157,7 @@ public class TestGM : MonoBehaviour
             bolsimon3Vida.text = vida.ToString();
             if (vida <= 0)
             {
+                textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetPlanta").SetActive(false);
                 bolsimon3Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
@@ -153,13 +168,18 @@ public class TestGM : MonoBehaviour
 
     void CheckWinCondition()
     {
-        print("checking win conditions");
-        textUI.text = "c";
-        print(players.Count(GameObject => GameObject.activeSelf == true));
+        //print("checking win conditions");
+        //print(players.Count(GameObject => GameObject.activeSelf == true));
         if (players.Count(GameObject => GameObject.activeSelf == true) == 1)
         {
-            textUI.text = $"El bolsimon {players[players.FindIndex(GameObject => GameObject.activeSelf)].GetComponent<TestBolsimon>().name} ha ganado.";
+            textUI.text = $"El bolsimon {players[players.FindIndex(GameObject => GameObject.activeSelf)].GetComponent<TestBolsimon>().Name} ha ganado. Volviendo al menu.";
+            returnToMenuTimerStart = true;
         }
+    }
+
+    void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("EscenaMenu");
     }
 
     // void RemoveAction(TestBolsimon origen)
