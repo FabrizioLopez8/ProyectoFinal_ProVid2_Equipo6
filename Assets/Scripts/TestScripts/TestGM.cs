@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngineInternal;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class TestGM : MonoBehaviour
 {
@@ -21,9 +22,18 @@ public class TestGM : MonoBehaviour
     public TMP_Text bolsimon3Vida;
 
     public List<Action> accionesTurno = new List<Action>();
+    private bool finishedActions = false;
 
     private bool returnToMenuTimerStart = false;
     private float rtmt = 0.0f;
+
+    public List<ITestAbilities> testHabilidades = new List<ITestAbilities>();
+
+    private bool UIWaitForUpdate;
+    private bool UIWaitTimeStart;
+    public float UIWaitTimerDuration;
+    private float UIWaitTimer;
+    private bool WaitForRoundStart = true;
 
     void Awake()
     {
@@ -33,6 +43,8 @@ public class TestGM : MonoBehaviour
             return;
         }
         Instance = this;
+
+        GenerateAbilityList();
     }
     void Start()
     {
@@ -44,8 +56,6 @@ public class TestGM : MonoBehaviour
         }
         StartRound();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (returnToMenuTimerStart)
@@ -56,6 +66,23 @@ public class TestGM : MonoBehaviour
                 ReturnToMainMenu();
             }
         }
+
+        if (UIWaitTimeStart)
+        {
+            UIWaitTimer += Time.deltaTime;
+            if (UIWaitTimer >= UIWaitTimerDuration)
+            {
+                UIWaitTimer = 0.0f;
+                UIWaitForUpdate = true;
+                UIWaitTimeStart = false;
+            }
+        }
+
+        if (!WaitForRoundStart)
+        {
+            StartRound();
+            WaitForRoundStart = true;
+        }
     }
 
     void StartRound()
@@ -65,20 +92,20 @@ public class TestGM : MonoBehaviour
         textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
     }
 
-    public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target)
+    public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target, float speed, TargetType targetType)
     {
-        accionesTurno.Add(new Action(origen, indexHabilidad, target));
+        accionesTurno.Add(new Action(origen, indexHabilidad, target, speed, targetType));
         NextPlayer();
     }
 
     void NextPlayer()
     {
-        print("paso al turno del siguiente jugador");
-        if (players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().currentTurn)
+        //print("paso al turno del siguiente jugador");
+        TestBolsimon lastPlayer = players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>();
+        if (lastPlayer.currentTurn)
         {
-            players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().SetTurn(false);
-            EndTurn();
-            StartRound();
+            lastPlayer.SetTurn(false);
+            StartCoroutine(EndTurn());
             return;
         }
 
@@ -100,68 +127,146 @@ public class TestGM : MonoBehaviour
                 nextPlayerAwaiting = false;
                 pTurn.SetTurn(true);
                 turnPlayer = p;
-                textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
+                ActualizarUI($"Es el turno de {pTurn.Name}");
             }
         }
 
     }
 
-    void EndTurn()
+    private IEnumerator EndTurn()
     {
-        ExecuteActions();
+        finishedActions = false;
+
+        StartCoroutine(ExecuteActions());
+
+        yield return new WaitUntil(() => finishedActions);
+
         accionesTurno.Clear();
-        print("turn ended");
+        foreach(GameObject p in players)
+        {
+            p.GetComponent<TestBolsimon>().OnTurnEnd();
+        }
+        WaitForRoundStart = false;
     }
 
-    void ExecuteActions()
+    private IEnumerator ExecuteActions()
     {
+        accionesTurno.Sort((a, b) => b.speed.CompareTo(a.speed));
         foreach (Action a in accionesTurno)
         {
             if (a.origen.isActiveAndEnabled != true || a.target.isActiveAndEnabled != true)
             {
                 continue;
             }
-            a.origen.habilidades[a.indexHabilidad].Ejecutar(a.origen, a.target);
-            textUI.text = $"{a.origen.Name} ha usado {a.origen.habilidades[a.indexHabilidad].Nombre} en {a.target.Name}";
+
+            if (a.targetType == TargetType.SingleTarget)
+            {
+                ActualizarUI($"{a.origen.Name} ha usado {a.origen.habilidades[a.indexHabilidad].Nombre} en {a.target.Name}");
+
+                yield return new WaitUntil(() => UIWaitForUpdate);
+
+                a.origen.habilidades[a.indexHabilidad].Ejecutar(a.origen, a.target);
+
+                yield return new WaitUntil(() => UIWaitForUpdate);
+            }
+            else if (a.targetType == TargetType.AllExceptSelf)
+            {
+                ActualizarUI($"{a.origen.Name} ha usado {a.origen.habilidades[a.indexHabilidad].Nombre}");
+
+                yield return new WaitUntil(() => UIWaitForUpdate);
+
+                List<TestBolsimon> allOtherPlayers = new List<TestBolsimon>();
+                foreach (GameObject p in players)
+                {
+                    if (!p.activeSelf) continue;
+                    TestBolsimon pBol = p.GetComponent<TestBolsimon>();
+                    if (pBol.Name != a.origen.Name) allOtherPlayers.Add(pBol);
+                }
+                foreach(TestBolsimon p in allOtherPlayers)
+                {
+                    a.origen.habilidades[a.indexHabilidad].Ejecutar(a.origen, p);
+
+                    yield return new WaitUntil(() => UIWaitForUpdate);
+                }
+            }
         }
+        foreach(GameObject p in players)
+        {
+            TestBolsimon pBol = p.GetComponent<TestBolsimon>();
+            pBol.AplicarEfectos();
+
+            yield return new WaitUntil(() => UIWaitForUpdate); 
+        }
+        finishedActions = true;
     }
 
-    public void ActualizarVida(TestBolsimon jugador, int vida)
+    public void ActualizarVida(TestBolsimon jugador, int vida, int vidaPreDano)
     {
+        // TODO: Actualizar este terrible choclo a algo que no se repita tanto.
         if (jugador.gameObject == players[0])
         {
             bolsimon1Vida.text = vida.ToString();
+
+            if (vida > vidaPreDano)
+            {
+                ActualizarUI($"¡{jugador.Name} ha recuperado {vida - vidaPreDano} de vida!");
+                return;
+            }
+
             if (vida <= 0)
             {
-                textUI.text = $"{jugador.Name} ha sido derrotado!";
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño y ha sido derrotado!");
                 GameObject.Find("BotonTargetFuego").SetActive(false);
                 bolsimon1Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
             }
+            else
+            {
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño");
+            }
         }
         else if (jugador.gameObject == players[1])
         {
             bolsimon2Vida.text = vida.ToString();
+            if (vida > vidaPreDano)
+            {
+                ActualizarUI($"¡{jugador.Name} ha recuperado {vida - vidaPreDano} de vida!");
+                return;
+            }
+
             if (vida <= 0)
             {
-                textUI.text = $"{jugador.Name} ha sido derrotado!";
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño y ha sido derrotado!");
                 GameObject.Find("BotonTargetAgua").SetActive(false);
                 bolsimon2Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
             }
+            else
+            {
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño");
+            }
         }
         else
         {
             bolsimon3Vida.text = vida.ToString();
+            if (vida > vidaPreDano)
+            {
+                ActualizarUI($"¡{jugador.Name} ha recuperado {vida - vidaPreDano} de vida!");
+                return;
+            }
             if (vida <= 0)
             {
-                textUI.text = $"{jugador.Name} ha sido derrotado!";
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño y ha sido derrotado!");
                 GameObject.Find("BotonTargetPlanta").SetActive(false);
                 bolsimon3Vida.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
+            }
+            else
+            {
+                ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño");
             }
         }
     }
@@ -193,18 +298,52 @@ public class TestGM : MonoBehaviour
     //     print("hola");
     // }
 
+    public void IsShielded(TestBolsimon origen)
+    {
+        ActualizarUI($"¡{origen.Name} fue protegido por su Escudo!");
+    }
+
+    public void ShieldUsageMessage(TestBolsimon origen, string status)
+    {
+        if (status == "error") ActualizarUI($"{origen.Name} se ha quedado sin escudos.");
+        else if (status == "succes") ActualizarUI($"{origen.Name} ha usado un escudo. quedan {origen.shieldCount - 1} disponibles.");
+    }
+
+    void ActualizarUI(string text)
+    {
+        if (UIWaitForUpdate) {UIWaitForUpdate = false;}
+        textUI.text = text;
+        UIWaitTimeStart = true;
+    }
+
+    void GenerateAbilityList()
+    {
+        testHabilidades.Add(new MuroLLamas());
+        testHabilidades.Add(new Lluvia());
+        testHabilidades.Add(new Fotosintesis());
+    }
+
 }
 
+public enum TargetType
+{
+    SingleTarget,
+    AllExceptSelf
+}
 public class Action
 {
     public TestBolsimon origen;
     public int indexHabilidad;
     public TestBolsimon target;
+    public float speed;
+    public TargetType targetType;
 
-    public Action(TestBolsimon origen, int indexHabilidad, TestBolsimon target)
+    public Action(TestBolsimon origen, int indexHabilidad, TestBolsimon target, float speed, TargetType targetType)
     {
         this.origen = origen;
         this.indexHabilidad = indexHabilidad;
         this.target = target;
+        this.speed = speed;
+        this.targetType = targetType;
     }
 }

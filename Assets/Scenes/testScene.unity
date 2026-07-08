@@ -540,6 +540,7 @@ MonoBehaviour:
   bolsimon1Vida: {fileID: 140653288}
   bolsimon2Vida: {fileID: 1857366155}
   bolsimon3Vida: {fileID: 2136434096}
+  UIWaitTimerDuration: 3
 --- !u!4 &194047866
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,9 +1529,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Agua
   target: {fileID: 0}
+  type: Agua
   currentTurn: 0
+  speed: 300
+  baseSpeed: 0
+  danoBase: 0
   vida: 500
+  vidaBase: 0
   dano: 150
+  isShielded: 0
+  shieldCount: 3
+  efectoNegativo: 
+  efectoNegativoDuracion: 0
 --- !u!212 &1108380816
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1630,9 +1640,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Planta
   target: {fileID: 0}
+  type: Planta
   currentTurn: 0
+  speed: 400
+  baseSpeed: 0
+  danoBase: 0
   vida: 500
+  vidaBase: 0
   dano: 150
+  isShielded: 0
+  shieldCount: 3
+  efectoNegativo: 
+  efectoNegativoDuracion: 0
 --- !u!212 &1116145700
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2195,7 +2214,7 @@ GameObject:
   - component: {fileID: 1392986451}
   - component: {fileID: 1392986450}
   m_Layer: 5
-  m_Name: Attack (1)
+  m_Name: Habilidad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2264,7 +2283,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1392986451}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1108380815}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Habilidad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2066650303}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Habilidad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1116145699}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Habilidad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1392986451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2748,9 +2803,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Fuego
   target: {fileID: 0}
+  type: Fuego
   currentTurn: 0
+  speed: 250
+  baseSpeed: 0
+  danoBase: 0
   vida: 500
+  vidaBase: 0
   dano: 150
+  isShielded: 0
+  shieldCount: 3
+  efectoNegativo: 
+  efectoNegativoDuracion: 0
 --- !u!212 &2066650304
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2831,7 +2895,7 @@ GameObject:
   - component: {fileID: 2085891081}
   - component: {fileID: 2085891080}
   m_Layer: 5
-  m_Name: Attack (2)
+  m_Name: Escudo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2900,7 +2964,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2085891081}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1108380815}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Shield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2066650303}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Shield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1116145699}
+        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_MethodName: Shield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2085891081
 MonoBehaviour:
   m_ObjectHideFlags: 0
