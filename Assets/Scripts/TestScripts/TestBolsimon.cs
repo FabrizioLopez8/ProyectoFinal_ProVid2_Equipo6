@@ -51,10 +51,13 @@ public class TestBolsimon : MonoBehaviour
     public void RecibirAtaque(TestBolsimon origen)
     {
         vida -= dano;
-        if (vida <= 0)
+        /*
+         * if (vida <= 0)
         {
             gameObject.SetActive(false);
         }
+        TestGM.Instance.ActualizarVida(this, vida);
+        */
         TestGM.Instance.ActualizarVida(this, vida);
     }
 

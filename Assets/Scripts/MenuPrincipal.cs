@@ -25,7 +25,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void IniciarBatalla()
     {
-        SceneManager.LoadScene("EscenaJuego"); 
+        SceneManager.LoadScene("testScene"); 
     }
 
     public void Salir()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+/*public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     //public Jugador[] jugadores = new Jugador[3];
@@ -28,3 +28,4 @@ public class GameManager : MonoBehaviour
     //    return System.Array.FindAll(jugadores, j => j.estado == EstadoJugador.Vivo);
     //}
 }
+*/

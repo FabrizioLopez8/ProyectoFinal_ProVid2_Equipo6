@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
+// using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -15,7 +15,7 @@ public class TestGM : MonoBehaviour
     public GameObject turnPlayer;
     public List<GameObject> players;
     public TMP_Text textUI;
-
+    public ControladorVictoria controladorVictoria;
     public TMP_Text bolsimon1Vida;
     public TMP_Text bolsimon2Vida;
     public TMP_Text bolsimon3Vida;
@@ -52,6 +52,7 @@ public class TestGM : MonoBehaviour
     {
         players[players.FindIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().SetTurn(true);
         turnPlayer = players[players.FindIndex(GameObject => GameObject.activeSelf == true)];
+        ActualizarCartelTurno();
     }
 
     public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target)
@@ -68,7 +69,16 @@ public class TestGM : MonoBehaviour
         {
             players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().SetTurn(false);
             EndTurn();
-            StartRound();
+
+            // Chequeamos cuántos sobrevivieron
+            int jugadoresVivos = players.Count(p => p.activeSelf == true);
+
+            // SOLO iniciamos una nueva ronda si el juego no terminó
+            if (jugadoresVivos > 1)
+            {
+                StartRound();
+            }
+
             return;
         }
 
@@ -90,6 +100,7 @@ public class TestGM : MonoBehaviour
                 nextPlayerAwaiting = false;
                 pTurn.SetTurn(true);
                 turnPlayer = p;
+                ActualizarCartelTurno();
             }
         }
 
@@ -100,6 +111,16 @@ public class TestGM : MonoBehaviour
         ExecuteActions();
         accionesTurno.Clear();
         print("turn ended");
+
+        foreach (GameObject p in players)
+        {
+            if (p.GetComponent<TestBolsimon>().vida <= 0)
+            {
+                p.SetActive(false);
+            }
+        }
+
+        CheckWinCondition();
     }
 
     void ExecuteActions()
@@ -121,10 +142,8 @@ public class TestGM : MonoBehaviour
             bolsimon1Vida.text = vida.ToString();
             if (vida <= 0)
             {
-                GameObject.Find("BotonTargetFuego").SetActive(false);
+                GameObject.Find("BotonTargetFuego")?.SetActive(false);
                 bolsimon1Vida.gameObject.SetActive(false);
-                // RemoveAction(jugador);
-                CheckWinCondition();
             }
         }
         else if (jugador.gameObject == players[1])
@@ -132,10 +151,8 @@ public class TestGM : MonoBehaviour
             bolsimon2Vida.text = vida.ToString();
             if (vida <= 0)
             {
-                GameObject.Find("BotonTargetAgua").SetActive(false);
+                GameObject.Find("BotonTargetAgua")?.SetActive(false);
                 bolsimon2Vida.gameObject.SetActive(false);
-                // RemoveAction(jugador);
-                CheckWinCondition();
             }
         }
         else
@@ -143,10 +160,8 @@ public class TestGM : MonoBehaviour
             bolsimon3Vida.text = vida.ToString();
             if (vida <= 0)
             {
-                GameObject.Find("BotonTargetPlanta").SetActive(false);
+                GameObject.Find("BotonTargetPlanta")?.SetActive(false);
                 bolsimon3Vida.gameObject.SetActive(false);
-                // RemoveAction(jugador);
-                CheckWinCondition();
             }
         }
     }
@@ -154,11 +169,30 @@ public class TestGM : MonoBehaviour
     void CheckWinCondition()
     {
         print("checking win conditions");
-        textUI.text = "c";
-        print(players.Count(GameObject => GameObject.activeSelf == true));
-        if (players.Count(GameObject => GameObject.activeSelf == true) == 1)
+
+     
+        int jugadoresVivos = players.Count(p => p.activeSelf == true);
+
+        if (jugadoresVivos == 1)
         {
-            textUI.text = $"El bolsimon {players[players.FindIndex(GameObject => GameObject.activeSelf)].GetComponent<TestBolsimon>().name} ha ganado.";
+            
+            GameObject jugadorGanadorObj = players.First(p => p.activeSelf == true);
+
+            
+            TestBolsimon scriptGanador = jugadorGanadorObj.GetComponent<TestBolsimon>();
+            string nombreGanador = scriptGanador.Name;
+
+            
+            jugadorGanadorObj.transform.position = new Vector3(0, 0, 0);
+            // jugadorGanadorObj.transform.localScale = new Vector3(2f, 2f, 2f);
+
+            
+            controladorVictoria.MostrarVictoria(nombreGanador);
+        }
+        else if (jugadoresVivos == 0) 
+        {
+            // Si nadie quedó vivo, llamamos a la nueva función de empate
+            controladorVictoria.MostrarEmpate();
         }
     }
 
@@ -172,6 +206,15 @@ public class TestGM : MonoBehaviour
     // {
     //     print("hola");
     // }
+    void ActualizarCartelTurno()
+    {
+        if (turnPlayer != null)
+        {
+            // Saca el nombre del componente TestBolsimon del jugador actual
+            string nombreBolsimon = turnPlayer.GetComponent<TestBolsimon>().name;
+            textUI.text = $"Turno de: {nombreBolsimon}";
+        }
+    }
 
 }
 
