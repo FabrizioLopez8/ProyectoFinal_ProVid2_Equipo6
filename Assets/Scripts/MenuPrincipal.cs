@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipal : MonoBehaviour
 {
-    // Paneles del men�
+    // Paneles del menu
     public GameObject panelMenuPrincipal;
     public GameObject panelOpciones;
     public GameObject panelCreditos;

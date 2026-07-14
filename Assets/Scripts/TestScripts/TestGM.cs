@@ -3,10 +3,10 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 // using UnityEditor.Animations;
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
 using UnityEngine;
 using UnityEngineInternal;
 using UnityEngine.SceneManagement;
@@ -66,11 +66,11 @@ public class TestGM : MonoBehaviour
     {
         players[players.FindIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>().SetTurn(true);
         turnPlayer = players[players.FindIndex(GameObject => GameObject.activeSelf == true)];
-<<<<<<< HEAD
+//<<<<<<< HEAD
         textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
-=======
+//=======
         ActualizarCartelTurno();
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
     }
 
     public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target)
@@ -117,11 +117,11 @@ public class TestGM : MonoBehaviour
                 nextPlayerAwaiting = false;
                 pTurn.SetTurn(true);
                 turnPlayer = p;
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
-=======
+//=======
                 ActualizarCartelTurno();
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
             }
         }
 
@@ -164,12 +164,12 @@ public class TestGM : MonoBehaviour
             bolsimon1Vida.text = vida.ToString();
             if (vida <= 0)
             {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetFuego").SetActive(false);
-=======
+//=======
                 GameObject.Find("BotonTargetFuego")?.SetActive(false);
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
                 bolsimon1Vida.gameObject.SetActive(false);
             }
         }
@@ -178,12 +178,12 @@ public class TestGM : MonoBehaviour
             bolsimon2Vida.text = vida.ToString();
             if (vida <= 0)
             {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetAgua").SetActive(false);
-=======
+//=======
                 GameObject.Find("BotonTargetAgua")?.SetActive(false);
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
                 bolsimon2Vida.gameObject.SetActive(false);
             }
         }
@@ -192,12 +192,12 @@ public class TestGM : MonoBehaviour
             bolsimon3Vida.text = vida.ToString();
             if (vida <= 0)
             {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 textUI.text = $"{jugador.Name} ha sido derrotado!";
                 GameObject.Find("BotonTargetPlanta").SetActive(false);
-=======
+//=======
                 GameObject.Find("BotonTargetPlanta")?.SetActive(false);
->>>>>>> desarrollo-gaston
+//>>>>>>> desarrollo-gaston
                 bolsimon3Vida.gameObject.SetActive(false);
             }
         }
@@ -205,44 +205,45 @@ public class TestGM : MonoBehaviour
 
     void CheckWinCondition()
     {
-<<<<<<< HEAD
+        //<<<<<<< HEAD
         //print("checking win conditions");
         //print(players.Count(GameObject => GameObject.activeSelf == true));
         if (players.Count(GameObject => GameObject.activeSelf == true) == 1)
         {
             textUI.text = $"El bolsimon {players[players.FindIndex(GameObject => GameObject.activeSelf)].GetComponent<TestBolsimon>().Name} ha ganado. Volviendo al menu.";
             returnToMenuTimerStart = true;
-=======
-        print("checking win conditions");
+            //=======
+            print("checking win conditions");
 
-     
-        int jugadoresVivos = players.Count(p => p.activeSelf == true);
 
-        if (jugadoresVivos == 1)
-        {
-            
-            GameObject jugadorGanadorObj = players.First(p => p.activeSelf == true);
+            int jugadoresVivos = players.Count(p => p.activeSelf == true);
 
-            
-            TestBolsimon scriptGanador = jugadorGanadorObj.GetComponent<TestBolsimon>();
-            string nombreGanador = scriptGanador.Name;
+            if (jugadoresVivos == 1)
+            {
 
-            
-            jugadorGanadorObj.transform.position = new Vector3(0, 0, 0);
-            // jugadorGanadorObj.transform.localScale = new Vector3(2f, 2f, 2f);
+                GameObject jugadorGanadorObj = players.First(p => p.activeSelf == true);
 
-            
-            controladorVictoria.MostrarVictoria(nombreGanador);
-        }
-        else if (jugadoresVivos == 0) 
-        {
-            // Si nadie quedó vivo, llamamos a la nueva función de empate
-            controladorVictoria.MostrarEmpate();
->>>>>>> desarrollo-gaston
+
+                TestBolsimon scriptGanador = jugadorGanadorObj.GetComponent<TestBolsimon>();
+                string nombreGanador = scriptGanador.Name;
+
+
+                jugadorGanadorObj.transform.position = new Vector3(0, 0, 0);
+                // jugadorGanadorObj.transform.localScale = new Vector3(2f, 2f, 2f);
+
+
+                controladorVictoria.MostrarVictoria(nombreGanador);
+            }
+            else if (jugadoresVivos == 0)
+            {
+                // Si nadie quedó vivo, llamamos a la nueva función de empate
+                controladorVictoria.MostrarEmpate();
+                //>>>>>>> desarrollo-gaston
+            }
         }
     }
 
-    void ReturnToMainMenu()
+    public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("EscenaMenu");
     }
@@ -257,7 +258,7 @@ public class TestGM : MonoBehaviour
     // {
     //     print("hola");
     // }
-    void ActualizarCartelTurno()
+   public void ActualizarCartelTurno()
     {
         if (turnPlayer != null)
         {
