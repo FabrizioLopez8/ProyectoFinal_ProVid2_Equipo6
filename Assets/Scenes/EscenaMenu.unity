@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 40806340}
   - component: {fileID: 40806339}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Bolsimon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 007b5ed0648858d2cbc5608ea8ab5d4a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 42501519}
   - component: {fileID: 42501522}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonSeleccionP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,8 +527,9 @@ GameObject:
   - component: {fileID: 220690170}
   - component: {fileID: 220690169}
   - component: {fileID: 220690168}
+  - component: {fileID: 220690171}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BotonSiguiente3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,7 +598,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 220690169}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 220690171}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: NextColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &220690169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +649,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220690166}
   m_CullTransparentMesh: 1
+--- !u!114 &220690171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220690166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 40806339}
 --- !u!1 &235360827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1554,7 @@ GameObject:
   - component: {fileID: 497355435}
   - component: {fileID: 497355434}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonSeleccionP3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2251,8 +2277,9 @@ GameObject:
   - component: {fileID: 591327131}
   - component: {fileID: 591327130}
   - component: {fileID: 591327129}
+  - component: {fileID: 591327132}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonAnterior3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2321,7 +2348,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 591327130}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591327132}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: PreviousColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &591327130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2360,6 +2399,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591327127}
   m_CullTransparentMesh: 1
+--- !u!114 &591327132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591327127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 40806339}
 --- !u!1 &678018315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,7 +2426,7 @@ GameObject:
   - component: {fileID: 678018318}
   - component: {fileID: 678018317}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonSeleccionP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3054,8 +3106,9 @@ GameObject:
   - component: {fileID: 795608772}
   - component: {fileID: 795608771}
   - component: {fileID: 795608770}
+  - component: {fileID: 795608773}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonAnterior1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3124,7 +3177,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 795608771}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 795608773}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: PreviousColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &795608771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3163,6 +3228,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795608768}
   m_CullTransparentMesh: 1
+--- !u!114 &795608773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795608768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 1949643663}
 --- !u!1 &879944354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4074,8 +4152,9 @@ GameObject:
   - component: {fileID: 1099738428}
   - component: {fileID: 1099738427}
   - component: {fileID: 1099738426}
+  - component: {fileID: 1099738429}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BotonSiguiente1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4144,7 +4223,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1099738427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1099738429}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: NextColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1099738427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4183,6 +4274,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099738424}
   m_CullTransparentMesh: 1
+--- !u!114 &1099738429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099738424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 1949643663}
 --- !u!1 &1131943946
 GameObject:
   m_ObjectHideFlags: 0
@@ -4822,8 +4926,9 @@ GameObject:
   - component: {fileID: 1275412148}
   - component: {fileID: 1275412147}
   - component: {fileID: 1275412146}
+  - component: {fileID: 1275412149}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BotonAnterior2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4892,7 +4997,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1275412147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1275412149}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: PreviousColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1275412147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4931,6 +5048,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275412144}
   m_CullTransparentMesh: 1
+--- !u!114 &1275412149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275412144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2002641001}
 --- !u!1 &1295740555
 GameObject:
   m_ObjectHideFlags: 0
@@ -5650,8 +5780,9 @@ GameObject:
   - component: {fileID: 1659264797}
   - component: {fileID: 1659264796}
   - component: {fileID: 1659264795}
+  - component: {fileID: 1659264798}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BotonSiguiente2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5720,7 +5851,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1659264796}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1659264798}
+        m_TargetAssemblyTypeName: SeleccionBolsimon, Assembly-CSharp
+        m_MethodName: NextColor
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1659264796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5759,6 +5902,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659264793}
   m_CullTransparentMesh: 1
+--- !u!114 &1659264798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659264793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa0ef4853403297a6bdff43609b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2002641001}
 --- !u!1 &1662508709
 GameObject:
   m_ObjectHideFlags: 0
@@ -6648,7 +6804,7 @@ GameObject:
   - component: {fileID: 1949643664}
   - component: {fileID: 1949643663}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Bolsimon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6693,7 +6849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 007b5ed0648858d2cbc5608ea8ab5d4a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6960,7 +7116,7 @@ GameObject:
   - component: {fileID: 2002641002}
   - component: {fileID: 2002641001}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Bolsimon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7005,7 +7161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 007b5ed0648858d2cbc5608ea8ab5d4a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

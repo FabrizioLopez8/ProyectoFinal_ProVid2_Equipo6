@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 21404106}
   - component: {fileID: 21404105}
   m_Layer: 5
-  m_Name: BotonTargetAgua
+  m_Name: BotonTargetP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,36 +206,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2066650303}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1108380815}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1108380815}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1108380815}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1116145699}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1108380815}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -536,10 +524,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnPlayer: {fileID: 0}
   players: []
+  playersBolsimon: []
   textUI: {fileID: 1147697483}
-  bolsimon1Vida: {fileID: 140653288}
-  bolsimon2Vida: {fileID: 1857366155}
-  bolsimon3Vida: {fileID: 2136434096}
+  bolsimonHealth1: {fileID: 140653288}
+  bolsimonHealth2: {fileID: 1857366155}
+  bolsimonHealth3: {fileID: 2136434096}
   UIWaitTimerDuration: 3
 --- !u!4 &194047866
 Transform:
@@ -569,7 +558,7 @@ GameObject:
   - component: {fileID: 356381160}
   - component: {fileID: 356381159}
   m_Layer: 5
-  m_Name: BotonTargetPlanta
+  m_Name: BotonTargetP3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,37 +628,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2066650303}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1116145699}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1108380815}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1116145699}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1116145699}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+      - m_Target: {fileID: 2066650303}
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1116145699}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -849,6 +826,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447484632}
   m_CullTransparentMesh: 1
+--- !u!1 &507554639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507554640}
+  - component: {fileID: 507554641}
+  m_Layer: 0
+  m_Name: Player3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &507554640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507554639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1116145701}
+  m_Father: {fileID: 1234332549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &507554641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507554639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77c6b8c6ee84c51a7ae913442e66a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pType: 0
+  bolsimon: {fileID: 0}
 --- !u!1 &538735566
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +941,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &614047604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 614047605}
+  - component: {fileID: 614047606}
+  m_Layer: 0
+  m_Name: Player2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &614047605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614047604}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1108380817}
+  m_Father: {fileID: 1234332549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614047606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614047604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77c6b8c6ee84c51a7ae913442e66a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pType: 0
+  bolsimon: {fileID: 0}
 --- !u!1 &655977502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1580,7 @@ GameObject:
   - component: {fileID: 1108380816}
   - component: {fileID: 1108380815}
   m_Layer: 0
-  m_Name: BolsimonAgua
+  m_Name: Bolsimon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1527,20 +1598,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bc76d3c6e9c250a8d3cb3f53fab15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Agua
-  target: {fileID: 0}
-  type: Agua
+  Name: 
+  Target: {fileID: 0}
+  type: 0
+  playerType: 0
   currentTurn: 0
-  speed: 300
-  baseSpeed: 0
-  danoBase: 0
-  vida: 500
-  vidaBase: 0
-  dano: 150
+  baseHealth: 0
+  Health: 0
   isShielded: 0
   shieldCount: 3
-  efectoNegativo: 
-  efectoNegativoDuracion: 0
+  debuff: 
+  debuffDuration: 0
 --- !u!212 &1108380816
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1606,7 +1674,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1.1486332, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1234332549}
+  m_Father: {fileID: 614047605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1116145698
 GameObject:
@@ -1620,7 +1688,7 @@ GameObject:
   - component: {fileID: 1116145700}
   - component: {fileID: 1116145699}
   m_Layer: 0
-  m_Name: BolsimonPlanta
+  m_Name: Bolsimon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1638,20 +1706,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bc76d3c6e9c250a8d3cb3f53fab15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Planta
-  target: {fileID: 0}
-  type: Planta
+  Name: 
+  Target: {fileID: 0}
+  type: 0
+  playerType: 0
   currentTurn: 0
-  speed: 400
-  baseSpeed: 0
-  danoBase: 0
-  vida: 500
-  vidaBase: 0
-  dano: 150
+  baseHealth: 0
+  Health: 0
   isShielded: 0
   shieldCount: 3
-  efectoNegativo: 
-  efectoNegativoDuracion: 0
+  debuff: 
+  debuffDuration: 0
 --- !u!212 &1116145700
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1717,7 +1782,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1.1486332, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1234332549}
+  m_Father: {fileID: 507554640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147697481
 GameObject:
@@ -2039,9 +2104,9 @@ Transform:
   m_LocalScale: {x: 5, y: 8.705999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2066650305}
-  - {fileID: 1108380817}
-  - {fileID: 1116145701}
+  - {fileID: 1924175518}
+  - {fileID: 614047605}
+  - {fileID: 507554640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1355748893
@@ -2057,7 +2122,7 @@ GameObject:
   - component: {fileID: 1355748896}
   - component: {fileID: 1355748895}
   m_Layer: 5
-  m_Name: BotonTargetFuego
+  m_Name: BotonTargetP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2127,37 +2192,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2066650303}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: SetTarget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2066650303}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1108380815}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2066650303}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1116145699}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
         m_MethodName: SetTarget
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2066650303}
-          m_ObjectArgumentAssemblyTypeName: TestBolsimon, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: BolsimonController, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2285,8 +2338,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1108380815}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: Habilidad
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
+        m_MethodName: Ability
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2297,8 +2350,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2066650303}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: Habilidad
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
+        m_MethodName: Ability
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2309,8 +2362,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1116145699}
-        m_TargetAssemblyTypeName: TestBolsimon, Assembly-CSharp
-        m_MethodName: Habilidad
+        m_TargetAssemblyTypeName: BolsimonController, Assembly-CSharp
+        m_MethodName: Ability
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2637,6 +2690,53 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1924175517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924175518}
+  - component: {fileID: 1924175519}
+  m_Layer: 0
+  m_Name: Player1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1924175518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924175517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2066650305}
+  m_Father: {fileID: 1234332549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1924175519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924175517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77c6b8c6ee84c51a7ae913442e66a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pType: 0
+  bolsimon: {fileID: 0}
 --- !u!1 &2024950316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,7 +2883,7 @@ GameObject:
   - component: {fileID: 2066650304}
   - component: {fileID: 2066650303}
   m_Layer: 0
-  m_Name: BolsimonFuego
+  m_Name: Bolsimon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2801,20 +2901,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bc76d3c6e9c250a8d3cb3f53fab15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Fuego
-  target: {fileID: 0}
-  type: Fuego
+  Name: 
+  Target: {fileID: 0}
+  type: 0
+  playerType: 0
   currentTurn: 0
-  speed: 250
-  baseSpeed: 0
-  danoBase: 0
-  vida: 500
-  vidaBase: 0
-  dano: 150
+  baseHealth: 0
+  Health: 0
   isShielded: 0
   shieldCount: 3
-  efectoNegativo: 
-  efectoNegativoDuracion: 0
+  debuff: 
+  debuffDuration: 0
 --- !u!212 &2066650304
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2880,7 +2977,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1.1486332, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1234332549}
+  m_Father: {fileID: 1924175518}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2085891078
 GameObject:
