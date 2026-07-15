@@ -12,7 +12,6 @@ using Unity.VisualScripting;
 public class TestGM : MonoBehaviour
 {
     public static TestGM Instance { get; private set; }
-    // Start is called before the first frame update
 
     public GameObject turnPlayer;
     public List<GameObject> players;
@@ -21,6 +20,12 @@ public class TestGM : MonoBehaviour
     public TMP_Text bolsimon1Vida;
     public TMP_Text bolsimon2Vida;
     public TMP_Text bolsimon3Vida;
+
+    [Header("Timer del Turno")]
+    public TMP_Text textoTimer;
+    private float tiempoTurno = 15f;
+    private float timerActual;
+    private bool timerActivo = false;
 
     public List<Action> accionesTurno = new List<Action>();
     private bool finishedActions = false;
@@ -61,6 +66,21 @@ public class TestGM : MonoBehaviour
 
     void Update()
     {
+       
+        if (timerActivo)
+        {
+            timerActual -= Time.deltaTime;
+            textoTimer.text = Mathf.CeilToInt(timerActual).ToString();
+
+            if (timerActual <= 0)
+            {
+                timerActivo = false;
+                textoTimer.text = "0";
+                ActualizarUI($"¡A {turnPlayer.GetComponent<TestBolsimon>().Name} se le acabó el tiempo!");
+                NextPlayer();
+            }
+        }
+
         if (returnToMenuTimerStart)
         {
             rtmt += Time.deltaTime;
@@ -94,6 +114,10 @@ public class TestGM : MonoBehaviour
         turnPlayer = players[players.FindIndex(GameObject => GameObject.activeSelf == true)];
         ActualizarCartelTurno();
         textUI.text = $"Es el turno de {turnPlayer.GetComponent<TestBolsimon>().Name}";
+
+        
+        timerActual = tiempoTurno;
+        timerActivo = true;
     }
 
     public void AddAction(TestBolsimon origen, int indexHabilidad, TestBolsimon target, float speed, TargetType targetType)
@@ -104,6 +128,9 @@ public class TestGM : MonoBehaviour
 
     void NextPlayer()
     {
+        
+        timerActivo = false;
+
         TestBolsimon lastPlayer = players[players.FindLastIndex(GameObject => GameObject.activeSelf == true)].GetComponent<TestBolsimon>();
         if (lastPlayer.currentTurn)
         {
@@ -142,13 +169,20 @@ public class TestGM : MonoBehaviour
                 turnPlayer = p;
                 ActualizarCartelTurno();
                 ActualizarUI($"Es el turno de {pTurn.Name}");
+
+               
+                timerActual = tiempoTurno;
+                timerActivo = true;
             }
         }
-
     }
 
     private IEnumerator EndTurn()
     {
+        
+        timerActivo = false;
+        if (textoTimer != null) textoTimer.text = "-";
+
         finishedActions = false;
 
         StartCoroutine(ExecuteActions());
@@ -239,7 +273,6 @@ public class TestGM : MonoBehaviour
 
             if (vida <= 0)
             {
-                
                 GameObject.Find("BotonTargetFuego")?.SetActive(false);
                 ActualizarUI($"¡{jugador.Name} ha recibido {vidaPreDano - vida} de daño y ha sido derrotado!");
                 bolsimon1Vida.gameObject.SetActive(false);
