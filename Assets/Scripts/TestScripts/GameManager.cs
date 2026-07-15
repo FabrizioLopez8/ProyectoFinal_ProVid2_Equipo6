@@ -38,6 +38,12 @@ public class TestGM : MonoBehaviour
 
     public event System.Action<BolsimonController> OnJuegoTerminado;
 
+    [Header("Timer del Turno")]
+    public TMP_Text textoTimer;
+    private float tiempoTurno = 15f;
+    private float timerActual;
+    private bool timerActivo = false;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -75,6 +81,19 @@ public class TestGM : MonoBehaviour
     }
     void Update()
     {
+                if (timerActivo)
+        {
+            timerActual -= Time.deltaTime;
+            textoTimer.text = Mathf.CeilToInt(timerActual).ToString();
+
+            if (timerActual <= 0)
+            {
+                timerActivo = false;
+                textoTimer.text = "0";
+                ActualizarUI($"¡A {turnPlayer.Name} se le acabó el tiempo!");
+                NextPlayer();
+            }
+        }
         if (returnToMenuTimerStart)
         {
             rtmt += Time.deltaTime;
@@ -109,6 +128,9 @@ public class TestGM : MonoBehaviour
         turnPlayer = firstActiveBolsimon;
         if (turnPlayer.playerType == PlayerType.IA) turnPlayer.MakeIAPlay();
         textUI.text = $"Es el turno de {turnPlayer.Name}";
+
+        timerActual = tiempoTurno;
+        timerActivo = true;
     }
 
     public void AddAction(BolsimonController origin, int abilityIndex, BolsimonController target, float speed, TargetType targetType)
@@ -119,6 +141,8 @@ public class TestGM : MonoBehaviour
 
     void NextPlayer()
     {
+
+        timerActivo = false;
         //print("paso al turno del siguiente jugador");
         BolsimonController lastPlayer = playersBolsimon[playersBolsimon.FindLastIndex(gameObject => gameObject.isActiveAndEnabled == true)];
         if (lastPlayer.currentTurn)
@@ -147,6 +171,9 @@ public class TestGM : MonoBehaviour
                 turnPlayer = b;
                 if (turnPlayer.playerType == PlayerType.IA) turnPlayer.MakeIAPlay();
                 ActualizarUI($"Es el turno de {b.Name}");
+
+                timerActual = tiempoTurno;
+                timerActivo = true;
             }
         }
 
