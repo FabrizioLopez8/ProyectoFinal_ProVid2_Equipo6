@@ -8,10 +8,15 @@ public class TestPlayer : MonoBehaviour
     public PlayerType pType;
     public BolsimonController bolsimon;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GetPlayerType();
         GetPlayerBolsimon();
+        
+    }
+    void Start()
+    {
+        //print($"{PlayersData.player3} + {PlayersData.bolsimonP3}");
     }
     public void GetPlayerType()
     {
@@ -38,6 +43,7 @@ public class TestPlayer : MonoBehaviour
         {
 
             bolsimon = playerBolsimon;
+            bolsimon.playerType = pType;
             char player = gameObject.name[gameObject.name.Length -1];
             switch (player)
             {
@@ -50,7 +56,8 @@ public class TestPlayer : MonoBehaviour
                 case '3':
                     bolsimon.type = PlayersData.bolsimonP3;
                     break;     
-            } 
+            }
+
 
         }
 

@@ -7,9 +7,10 @@ using UnityEngine.Video;
 public class BolsimonController : MonoBehaviour
 {
 
-    public string Name {get; private set;}
-    public BolsimonController Target {get; private set;}
+    public string Name;
+    public BolsimonController Target;
     public ElementType type;
+    public PlayerType playerType;
     public bool currentTurn;
     
     
@@ -17,8 +18,8 @@ public class BolsimonController : MonoBehaviour
     public float Speed {get; private set;}
     private float BaseDamage;
     public float Damage {get; private set;}
-    private int baseHealth;
-    public int Health {get; private set;}
+    public int baseHealth;
+    public int Health;
    
     
     public List<Abilities> abilities = new List<Abilities>();
@@ -34,15 +35,20 @@ public class BolsimonController : MonoBehaviour
     public int debuffDuration;
     private BolsimonController debuffOrigin;
 
-    // Start is called before the first frame update
-    void Start()
+    public IAStrategy iaStrategy;
+
+    void Awake()
     {
         GetBolsimonStatsAndAbilities();
         SetBaseStats();
-        foreach (Abilities a in abilities)
-        {
-            print(a.Name);
-        }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        // foreach (Abilities a in abilities)
+        // {
+        //     print(a.Name);
+        // }
 
     }
 
@@ -62,7 +68,7 @@ public class BolsimonController : MonoBehaviour
 
     public void SetTarget(BolsimonController target1)
     {
-        if (currentTurn && target1 != this)
+        if (currentTurn)
         {
             Target = target1;
         }
@@ -104,6 +110,7 @@ public class BolsimonController : MonoBehaviour
     {
         if (currentTurn && Target != null)
         {
+            print("a");
             //TestGM.Instance.Hola();
             //print($"{this} + {abilities.FindIndex(h => h.Name == "Ataque")} + {Target}");
             int actionIndex = abilities.FindIndex(h => h.Name == "Ataque");
@@ -115,6 +122,7 @@ public class BolsimonController : MonoBehaviour
     {
         if (currentTurn && waitTimePassed)
         {
+            print("s");
             int actionIndex = abilities.FindIndex(h => h.Name == "Escudo");
             TestGM.Instance.AddAction(this, actionIndex, this, Speed * 10, abilities[actionIndex].targetType);
         }
@@ -137,6 +145,7 @@ public class BolsimonController : MonoBehaviour
     {
         if (currentTurn && waitTimePassed)
         {
+            print("h");
             int actionIndex = abilities.FindIndex(h => h.Tipo == type);
             TestGM.Instance.AddAction(this, actionIndex, this, Speed, abilities[actionIndex].targetType);
         }
@@ -186,6 +195,11 @@ public class BolsimonController : MonoBehaviour
         BaseDamage = Bolsimon.BaseDamage(type);
         baseHealth = Bolsimon.BaseHealth(type);
         abilities = Bolsimon.Abilities(type);
+        gameObject.GetComponent<SpriteRenderer>().color = Bolsimon.Colors(type);
+        if (playerType == PlayerType.IA)
+        {
+            iaStrategy = Bolsimon.GetIAStrategy(type);
+        }
     }
 
     void SetBaseStats()
@@ -193,5 +207,11 @@ public class BolsimonController : MonoBehaviour
         Speed = baseSpeed;
         Damage = BaseDamage;
         Health = baseHealth;
+    }
+
+    public void MakeIAPlay()
+    {
+        print("AiLogic");
+        iaStrategy.ChooseAction(this);
     }
 }

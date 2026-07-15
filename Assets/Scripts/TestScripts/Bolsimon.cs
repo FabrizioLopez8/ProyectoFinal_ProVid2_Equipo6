@@ -94,4 +94,44 @@ public static class Bolsimon
                 return null;
         }
     }
+
+    public static Color Colors(ElementType elementType)
+    {
+         switch (elementType)
+        {
+            case ElementType.Fire:
+                return Color.red;
+            case ElementType.Water:
+                return Color.blue;
+            case ElementType.Plant:
+                return Color.green;
+            default:
+                return Color.white;
+        }
+    }
+
+    public static ElementType GetElementTypeOnColor(Color color)
+    {
+
+        if (color == Color.red) return ElementType.Fire;
+        else if (color == Color.blue) return ElementType.Water;
+        else if (color ==Color.green) return ElementType.Plant;
+        else return 0;
+                
+    }
+
+    public static IAStrategy GetIAStrategy(ElementType elementType)
+    {
+        switch (elementType)
+        {
+            case ElementType.Fire:
+                return new AggressiveIA();
+            case ElementType.Water:
+                return new DebuffingIA();
+            case ElementType.Plant:
+                return new DefensiveIA();
+            default:
+                return null;
+        }
+    }
 }

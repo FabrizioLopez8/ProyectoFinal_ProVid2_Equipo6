@@ -55,6 +55,7 @@ public class TestGM : MonoBehaviour
         {
             players.Add(allPlayers.transform.GetChild(i).gameObject);
         }
+        //foreach (GameObject p in players)
         foreach(GameObject p in players)
         {
             playersBolsimon.Add(p.transform.GetComponentInChildren<BolsimonController>());
@@ -95,6 +96,7 @@ public class TestGM : MonoBehaviour
         BolsimonController firstActiveBolsimon = playersBolsimon[playersBolsimon.FindIndex(gameObject => gameObject.isActiveAndEnabled == true)];
         firstActiveBolsimon.SetTurn(true);
         turnPlayer = firstActiveBolsimon;
+        if (turnPlayer.playerType == PlayerType.IA) turnPlayer.MakeIAPlay();
         textUI.text = $"Es el turno de {turnPlayer.Name}";
     }
 
@@ -107,7 +109,7 @@ public class TestGM : MonoBehaviour
     void NextPlayer()
     {
         //print("paso al turno del siguiente jugador");
-        BolsimonController lastPlayer = playersBolsimon[playersBolsimon.FindIndex(gameObject => gameObject.isActiveAndEnabled == true)];
+        BolsimonController lastPlayer = playersBolsimon[playersBolsimon.FindLastIndex(gameObject => gameObject.isActiveAndEnabled == true)];
         if (lastPlayer.currentTurn)
         {
             lastPlayer.SetTurn(false);
@@ -115,7 +117,7 @@ public class TestGM : MonoBehaviour
             return;
         }
 
-        bool nextPlayerAwaiting = false; print(turnPlayer);
+        bool nextPlayerAwaiting = false; //print(turnPlayer);
         foreach (BolsimonController b in playersBolsimon)
         {
             if (b.isActiveAndEnabled != true)
@@ -132,6 +134,7 @@ public class TestGM : MonoBehaviour
                 nextPlayerAwaiting = false;
                 b.SetTurn(true);
                 turnPlayer = b;
+                if (turnPlayer.playerType == PlayerType.IA) turnPlayer.MakeIAPlay();
                 ActualizarUI($"Es el turno de {b.Name}");
             }
         }
@@ -210,7 +213,7 @@ public class TestGM : MonoBehaviour
     public void UpdateHealth(BolsimonController jugador, int health, int previousHealth)
     {
         // TODO: Actualizar este terrible choclo a algo que no se repita tanto.
-        if (jugador.gameObject == players[0])
+        if (jugador == playersBolsimon[0])
         {
             bolsimonHealth1.text = health.ToString();
 
@@ -233,7 +236,7 @@ public class TestGM : MonoBehaviour
                 ActualizarUI($"¡{jugador.Name} ha recibido {previousHealth - health} de daño");
             }
         }
-        else if (jugador.gameObject == players[1])
+        else if (jugador == playersBolsimon[1])
         {
             bolsimonHealth2.text = health.ToString();
             if (health > previousHealth)
