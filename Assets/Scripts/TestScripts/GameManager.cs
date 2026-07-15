@@ -36,6 +36,8 @@ public class TestGM : MonoBehaviour
     private float UIWaitTimer;
     private bool WaitForRoundStart = true;
 
+    public event System.Action<BolsimonController> OnJuegoTerminado;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -61,6 +63,15 @@ public class TestGM : MonoBehaviour
             playersBolsimon.Add(p.transform.GetComponentInChildren<BolsimonController>());
         }
         StartRound();
+        SetUIStartingHealth();
+        UIManager.Instance.Preparations();
+    }
+
+    void SetUIStartingHealth()
+    {
+        bolsimonHealth1.text = playersBolsimon[0].Health.ToString();
+        bolsimonHealth2.text = playersBolsimon[1].Health.ToString();
+        bolsimonHealth3.text = playersBolsimon[2].Health.ToString();
     }
     void Update()
     {
@@ -203,9 +214,13 @@ public class TestGM : MonoBehaviour
         }
         foreach(BolsimonController b in playersBolsimon)
         {
-            b.ApplyDebuffEffectsOnTurnEnd();
+            if (b.isActiveAndEnabled == true)
+            {
+                b.ApplyDebuffEffectsOnTurnEnd();
+                
+                yield return new WaitUntil(() => UIWaitForUpdate); 
+            }
 
-            yield return new WaitUntil(() => UIWaitForUpdate); 
         }
         finishedActions = true;
     }
@@ -226,7 +241,7 @@ public class TestGM : MonoBehaviour
             if (health <= 0)
             {
                 ActualizarUI($"¡{jugador.Name} ha recibido {previousHealth - health} de daño y ha sido derrotado!");
-                GameObject.Find("BotonTargetFuego").SetActive(false);
+                GameObject.Find("BotonTargetP1").SetActive(false);
                 bolsimonHealth1.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
@@ -248,7 +263,7 @@ public class TestGM : MonoBehaviour
             if (health <= 0)
             {
                 ActualizarUI($"¡{jugador.Name} ha recibido {previousHealth - health} de daño y ha sido derrotado!");
-                GameObject.Find("BotonTargetAgua").SetActive(false);
+                GameObject.Find("BotonTargetP2").SetActive(false);
                 bolsimonHealth2.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
@@ -269,7 +284,7 @@ public class TestGM : MonoBehaviour
             if (health <= 0)
             {
                 ActualizarUI($"¡{jugador.Name} ha recibido {previousHealth - health} de daño y ha sido derrotado!");
-                GameObject.Find("BotonTargetPlanta").SetActive(false);
+                GameObject.Find("BotonTargetP3").SetActive(false);
                 bolsimonHealth3.gameObject.SetActive(false);
                 // RemoveAction(jugador);
                 CheckWinCondition();
@@ -287,12 +302,14 @@ public class TestGM : MonoBehaviour
         //print(players.Count(GameObject => GameObject.activeSelf == true));
         if (playersBolsimon.Count(gameObject => gameObject.isActiveAndEnabled == true) == 1)
         {
-            textUI.text = $"El bolsimon {playersBolsimon[playersBolsimon.FindIndex(gameObject => gameObject.isActiveAndEnabled)].Name} ha ganado. Volviendo al menu.";
-            returnToMenuTimerStart = true;
+            // textUI.text = $"El bolsimon {playersBolsimon[playersBolsimon.FindIndex(gameObject => gameObject.isActiveAndEnabled)].Name} ha ganado. Volviendo al menu.";
+            // returnToMenuTimerStart = true;
+            //OnJuegoTerminado?.Invoke(playersBolsimon.Find(gameObject => gameObject.isActiveAndEnabled == true));
+            ControladorVictoria.Instance.ManejarFinDeJuego(playersBolsimon.Find(gameObject => gameObject.isActiveAndEnabled == true));
         }
     }
 
-    void ReturnToMainMenu()
+    public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("EscenaMenu");
     }

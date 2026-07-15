@@ -25,6 +25,7 @@ public class MuroLLamas : Abilities
     public void Execute(BolsimonController origin, BolsimonController target)
     {
         target.ReceiveAttack(origin, (float)(origin.Damage * 0.75));
+        target.DispararQuemado();
     }
 
 }
@@ -51,6 +52,7 @@ public class Fotosintesis : Abilities
     public void Execute(BolsimonController origin, BolsimonController target)
     {
         origin.Heal();
+        target.DispararCurado();
     }
 }
 
@@ -63,6 +65,7 @@ public class Attack : Abilities
     public void Execute(BolsimonController origin, BolsimonController target)
     {
         target.ReceiveAttack(origin, origin.Damage);
+        target.DispararDanio();
     }
 
 }

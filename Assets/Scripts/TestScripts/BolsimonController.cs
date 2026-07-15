@@ -102,8 +102,11 @@ public class BolsimonController : MonoBehaviour
     {
         Target = null;
         currentTurn = value;
-        waitTimePassed = false;
-        waitTime = 0.0f;
+        if (playerType != PlayerType.IA)
+        {
+            waitTimePassed = false;
+            waitTime = 0.0f;
+        }
     }
 
     public void Attack()
@@ -213,5 +216,28 @@ public class BolsimonController : MonoBehaviour
     {
         print("AiLogic");
         iaStrategy.ChooseAction(this);
+    }
+
+    // Eventos que dispara el jugador cuando algo cambia
+    public event System.Action OnQuemado;
+    public event System.Action OnCurado;
+    public event System.Action OnDanioRecibido;
+    public event System.Action OnEliminado;
+
+    // Metodos para disparar los eventos desde las acciones
+    public void DispararQuemado() => OnQuemado?.Invoke();
+    public void DispararCurado() => OnCurado?.Invoke();
+    public void DispararDanio() => OnDanioRecibido?.Invoke();
+    public void DispararEliminado() => OnEliminado?.Invoke();
+
+    // Limpia todas las suscripciones. Solo se puede asignar "= null" a un evento
+    // desde ADENTRO de la clase que lo declara, por eso este metodo vive aca
+    // y no se hace jugador.OnQuemado = null directamente desde UIManager.
+    public void LimpiarEventos()
+    {
+        OnQuemado = null;
+        OnCurado = null;
+        OnDanioRecibido = null;
+        OnEliminado = null;
     }
 }

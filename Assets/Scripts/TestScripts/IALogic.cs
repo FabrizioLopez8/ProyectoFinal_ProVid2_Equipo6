@@ -4,11 +4,13 @@ using UnityEngine;
 
 public interface IAStrategy
 {
+    string Name {get; }
     public void ChooseAction(BolsimonController origin);
 }
 
 public class AggressiveIA : IAStrategy
 {
+    public string Name => "AgressiveIA";
     public void ChooseAction(BolsimonController origin)
     {
         List<BolsimonController> otherPlayers = new List<BolsimonController>();
@@ -19,9 +21,11 @@ public class AggressiveIA : IAStrategy
         }
 
         int randomAbility = Random.Range(0, 3);
-        while (origin.abilities[randomAbility].Name == "Escudo")
+        if (origin.abilities[randomAbility].Name == "Escudo")
         {
-            randomAbility = Random.Range(0, 3);
+            int randomModifier = Random.Range(0, 2);
+            if (randomModifier == 0) randomAbility -= 1;
+            else randomAbility +=1;
         }
 
         if (origin.abilities[randomAbility].Tipo != ElementType.none) origin.Ability();
@@ -38,6 +42,8 @@ public class AggressiveIA : IAStrategy
 
 public class DefensiveIA : IAStrategy
 {
+    public string Name => "DefensiveIA";
+
     public void ChooseAction(BolsimonController origin)
     {
         List<BolsimonController> otherPlayers = new List<BolsimonController>();
@@ -48,6 +54,7 @@ public class DefensiveIA : IAStrategy
         }
 
         int randomAbility = Random.Range(0, 3);
+         Debug.Log($"{randomAbility}");
         if (origin.Health <= (int)(origin.baseHealth * 0.6) && (randomAbility != 1 || randomAbility != 2))
         {
             int extraRandomChanceHeal = Random.Range(0,2);
@@ -55,6 +62,7 @@ public class DefensiveIA : IAStrategy
         }
         else
         {
+             Debug.Log($"{origin.abilities[randomAbility]}");
             if (origin.abilities[randomAbility].Name == "Escudo") origin.Shield();
             else
             {
@@ -68,6 +76,8 @@ public class DefensiveIA : IAStrategy
 
 public class DebuffingIA : IAStrategy
 {
+    public string Name => "DebuffingIA";
+
     public void ChooseAction(BolsimonController origin)
     {
         List<BolsimonController> otherPlayers = new List<BolsimonController>();
